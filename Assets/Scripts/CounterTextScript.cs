@@ -5,6 +5,8 @@ public class CounterTextScript : MonoBehaviour
 {
 
     private int currentCount;
+    private Text text;
+
     public int Count
     {
         get { return currentCount; }
@@ -14,22 +16,10 @@ public class CounterTextScript : MonoBehaviour
             {
                 return;
             }
+
             currentCount = value;
+            text = text ?? GetComponent<Text>();
             text.text = currentCount.ToString();
         }
-    }
-
-    private Text text;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        text = GetComponent<Text>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -297,18 +297,34 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 173666482}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &173666484 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1536870936071774658, guid: 3e400fe103fc1eb498cf6a9b5846826a,
+--- !u!1 &235962303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9083567062786342015, guid: 3e400fe103fc1eb498cf6a9b5846826a,
     type: 3}
-  m_PrefabInstance: {fileID: 173666482}
+  m_PrefabInstance: {fileID: 2011959160}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &235962304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 235962303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Script: {fileID: 11500000, guid: 05c7d307425709049b73faa18baf06fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wheatTimer: {fileID: 701906184}
+  wheatCounter: {fileID: 264373571}
+  wheatPerFarmer: 1
+  wheatPerKnight: 1
+  finalWheat: 10
+  farmerCost: 1
+  knightCost: 2
+  farmerCounter: {fileID: 825870431}
+  knightCounter: {fileID: 966907269}
+  wheatsWinText: {fileID: 867447019}
 --- !u!1 &264373570 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4406406197003704357, guid: 3e400fe103fc1eb498cf6a9b5846826a,
@@ -325,18 +341,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 483e202e9431100499e9afcca4bcee04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &302845330 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2096685798925985965, guid: 3e400fe103fc1eb498cf6a9b5846826a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1514902794}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &309387106 stripped
@@ -525,33 +529,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdcffe270700484fb38156feb349414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheatTimer: {fileID: 701906184}
+  wheatPanel: {fileID: 235962304}
   farmerTimer: {fileID: 1351677691}
   knightTimer: {fileID: 37220777}
-  wheatCounter: {fileID: 264373571}
-  knightImage: {fileID: 1152871677}
-  invasionImage: {fileID: 302845330}
+  invasionTimer: {fileID: 1228382650}
+  prepareToInvasionTimer: {fileID: 1343990196}
+  farmerCounter: {fileID: 825870431}
+  knightCounter: {fileID: 966907269}
   resultPanel: {fileID: 1683465148}
   resultImage: {fileID: 430664187}
   failSprite: {fileID: 21300000, guid: f0a0cccc2f9d27e44b785331c03d83b3, type: 3}
   winSprite: {fileID: 21300000, guid: 4ebc6829b7269554b9af7c03a507ec9d, type: 3}
-  finalWheat: 10
   finalFarmer: 65
-  currentFarmersText: {fileID: 1159696341109465906}
-  currentKnightsText: {fileID: 173666484}
   currentInvasionText: {fileID: 309387106}
   resultText: {fileID: 1807663112}
-  wheatsWinText: {fileID: 867447019}
   FarmersWinText: {fileID: 733922738}
-  TimeToStartInvasionText: {fileID: 1343990194}
-  wheatPerFarmer: 1
-  wheatPerKnight: 1
   waves: 01000000020000000300000004000000050000000600000007000000080000000a0000000d000000
-  timeToHireKnight: 5
-  timeToStartInvasion: 30
-  timeInvasion: 30
-  farmerCost: 1
-  knightCost: 2
 --- !u!82 &635618245
 AudioSource:
   m_ObjectHideFlags: 0
@@ -960,8 +953,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: -15}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 180, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &733922738
 MonoBehaviour:
@@ -1004,6 +997,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733922736}
   m_CullTransparentMesh: 0
+--- !u!1 &825870428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4406406197003704357, guid: 3e400fe103fc1eb498cf6a9b5846826a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1159696341109465904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &825870431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825870428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 483e202e9431100499e9afcca4bcee04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &867447017
 GameObject:
   m_ObjectHideFlags: 0
@@ -1038,8 +1049,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 180, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &867447019
 MonoBehaviour:
@@ -1073,7 +1084,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Wheats: 0/100'
+  m_Text: 'Wheats: 2999/3000'
 --- !u!222 &867447020
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1351,16 +1362,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1152871677 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2096685798925985965, guid: 3e400fe103fc1eb498cf6a9b5846826a,
+--- !u!1 &966907266 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4406406197003704357, guid: 3e400fe103fc1eb498cf6a9b5846826a,
     type: 3}
   m_PrefabInstance: {fileID: 173666482}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 37220774}
+--- !u!114 &966907269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966907266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 483e202e9431100499e9afcca4bcee04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1223326488 stripped
@@ -1446,6 +1463,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1224300650}
   m_CullTransparentMesh: 0
+--- !u!1 &1228382647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2648930684851461637, guid: 3e400fe103fc1eb498cf6a9b5846826a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1514902794}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1228382650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228382647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88cc7afb4c5eb94db4fb1ada93745e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimePeriod: 15
 --- !u!1 &1343990192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1493,7 @@ GameObject:
   - component: {fileID: 1343990193}
   - component: {fileID: 1343990195}
   - component: {fileID: 1343990194}
+  - component: {fileID: 1343990196}
   m_Layer: 5
   m_Name: TimeToStartInvasionText
   m_TagString: Untagged
@@ -1524,6 +1561,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343990192}
   m_CullTransparentMesh: 0
+--- !u!114 &1343990196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343990192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a9d68b5930be1b429632bff050aad07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimePeriod: 0
 --- !u!1 &1351677688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2648930684851461637, guid: 3e400fe103fc1eb498cf6a9b5846826a,
@@ -2725,12 +2775,12 @@ PrefabInstance:
     - target: {fileID: 2648930684851461637, guid: 3e400fe103fc1eb498cf6a9b5846826a,
         type: 3}
       propertyPath: m_Name
-      value: WheatImage
+      value: WheatImageTimer
       objectReference: {fileID: 0}
     - target: {fileID: 4406406197003704357, guid: 3e400fe103fc1eb498cf6a9b5846826a,
         type: 3}
       propertyPath: m_Name
-      value: CurrentWheatText
+      value: CurrentWheatTextCounter
       objectReference: {fileID: 0}
     - target: {fileID: 8721080429624873494, guid: 3e400fe103fc1eb498cf6a9b5846826a,
         type: 3}
@@ -3097,18 +3147,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1159696341109465904}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1159696341109465906 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1536870936071774658, guid: 3e400fe103fc1eb498cf6a9b5846826a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1159696341109465904}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1495034413427355117
 PrefabInstance:
   m_ObjectHideFlags: 0
