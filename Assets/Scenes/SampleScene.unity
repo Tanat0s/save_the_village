@@ -121,6 +121,25 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &37220774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2648930684851461637, guid: 3e400fe103fc1eb498cf6a9b5846826a,
+    type: 3}
+  m_PrefabInstance: {fileID: 173666482}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &37220777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37220774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88cc7afb4c5eb94db4fb1ada93745e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimePeriod: 5
 --- !u!224 &137944363 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5152866251235744358, guid: da2ba1f286cf41a43a97cd1d4e64241d,
@@ -506,16 +525,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcdcffe270700484fb38156feb349414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeWheatScript: {fileID: 701906184}
+  wheatTimer: {fileID: 701906184}
+  farmerTimer: {fileID: 1351677691}
+  knightTimer: {fileID: 37220777}
   wheatCounter: {fileID: 264373571}
-  farmerImage: {fileID: 1107859075}
   knightImage: {fileID: 1152871677}
   invasionImage: {fileID: 302845330}
   resultPanel: {fileID: 1683465148}
   resultImage: {fileID: 430664187}
   failSprite: {fileID: 21300000, guid: f0a0cccc2f9d27e44b785331c03d83b3, type: 3}
   winSprite: {fileID: 21300000, guid: 4ebc6829b7269554b9af7c03a507ec9d, type: 3}
-  finalWheat: 3000
+  finalWheat: 10
   finalFarmer: 65
   currentFarmersText: {fileID: 1159696341109465906}
   currentKnightsText: {fileID: 173666484}
@@ -527,10 +547,9 @@ MonoBehaviour:
   wheatPerFarmer: 1
   wheatPerKnight: 1
   waves: 01000000020000000300000004000000050000000600000007000000080000000a0000000d000000
-  timeToHireFarmer: 4
   timeToHireKnight: 5
-  timeToStartInvasion: 0
-  timeInvasion: 2
+  timeToStartInvasion: 30
+  timeInvasion: 30
   farmerCost: 1
   knightCost: 2
 --- !u!82 &635618245
@@ -1332,25 +1351,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1107859075 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2096685798925985965, guid: 3e400fe103fc1eb498cf6a9b5846826a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1159696341109465904}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1152871677 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2096685798925985965, guid: 3e400fe103fc1eb498cf6a9b5846826a,
     type: 3}
   m_PrefabInstance: {fileID: 173666482}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 37220774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -1517,6 +1524,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343990192}
   m_CullTransparentMesh: 0
+--- !u!1 &1351677688 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2648930684851461637, guid: 3e400fe103fc1eb498cf6a9b5846826a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1159696341109465904}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1351677691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351677688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88cc7afb4c5eb94db4fb1ada93745e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimePeriod: 4
 --- !u!1 &1470526329 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1495034413248035159, guid: 3eb99fd008b057a4195a009d6f84b862,

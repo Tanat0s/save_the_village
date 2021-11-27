@@ -8,12 +8,14 @@ public class GameDispatcher : MonoBehaviour
     private const string failTitle = "You fail!\nYou created:\nWheats: {0}\nFarmers: {1}\nKnights: {2}";
     private const string winTitle = "You win!";
     private const string pauseTitle = "PAUSE";
+    //Timers
+    [SerializeField] private ImageTimerScript wheatTimer;
+    [SerializeField] private ImageTimerScript farmerTimer;
+    [SerializeField] private ImageTimerScript knightTimer;
+    [SerializeField] private ImageTimerScript invasionTimer;
+    [SerializeField] private TextTimerScript prepareToInvasionTimer;
     //Images
-    [SerializeField] private TimerScript timeWheatScript;
     [SerializeField] private CounterTextScript wheatCounter;
-    [SerializeField] private Image farmerImage;
-    [SerializeField] private Image knightImage;
-    [SerializeField] private Image invasionImage;
     [SerializeField] private GameObject resultPanel;
     [SerializeField] private Image resultImage;
     [SerializeField] private Sprite failSprite;
@@ -29,13 +31,11 @@ public class GameDispatcher : MonoBehaviour
     [SerializeField] private Text resultText;
     [SerializeField] private Text wheatsWinText;
     [SerializeField] private Text FarmersWinText;
-    [SerializeField] private Text TimeToStartInvasionText;
     [SerializeField] private int wheatPerFarmer;
     [SerializeField] private int wheatPerKnight;
     [SerializeField] private int[] waves = new int[5];
     private int currentInvasionWave = 0;
     private int totalWheatsCount;
-    private int totalFarmersCount;
     private int totalKnightsCount;
 
     private int currentFarmerCount;
@@ -51,7 +51,7 @@ public class GameDispatcher : MonoBehaviour
 
             currentFarmerCount = value;
             if(currentFarmerCount == 1)
-                timeWheatScript.StartTimer();
+                wheatTimer.StartTimer();
             UpdateCounter(currentFarmersText, currentFarmerCount.ToString());
         }
     }
@@ -87,18 +87,7 @@ public class GameDispatcher : MonoBehaviour
         } 
     }
     private int actualFarmerOnGetWheat=1;
-    private int farmersInQueue;
-    private int knightsInQueue;
-    private bool isInvasion = false;
-    //Timers
-    [SerializeField] private int timeToHireFarmer;
-    [SerializeField] private int timeToHireKnight;
-    [SerializeField] private int timeToStartInvasion;
-    [SerializeField] private int timeInvasion;
-    private float currentTimeToHireFarmer;
-    private float currentTimeToHireKnight;
-    private float currentTimeToStartInvasion;
-    private float currentTimeInvasion;
+
     //Costs
     [SerializeField] private int farmerCost;
     [SerializeField] private int knightCost;
@@ -113,8 +102,13 @@ public class GameDispatcher : MonoBehaviour
     private void Init()
     {
         wheatCounter.Count = 1;
-        timeWheatScript.OnTick += GetWheat;
-        TimeToStartInvasionText.text = timeToStartInvasion.ToString();
+        wheatTimer.OnTick += GetWheat;
+        farmerTimer.OnTick += GetFarmer;
+        knightTimer.OnTick += GetKnight;
+        invasionTimer.OnTick += CheckInvasion;
+        prepareToInvasionTimer.OnTick += CheckTimeToStartInvaision;
+        prepareToInvasionTimer.StartTimer();
+
         UpdateCounter(currentInvasionText, waves[currentInvasionWave].ToString());
         UpdateCounter(wheatsWinText, $"Wheats: {wheatCounter.Count}/{finalWheat}");
         UpdateCounter(FarmersWinText, $"Farmers: {CurrentFarmerCount}/{finalFarmer}");
@@ -133,29 +127,13 @@ public class GameDispatcher : MonoBehaviour
             return;
         }
 
-        if (isInvasion)
-        {
-            CheckInvasion();
-        }
-        else
-        {
-            CheckTimeToStartInvaision();
-        }
-
-        CheckFarmersInQueue();
-        CheckKnightsInQueue();
         CheckWinCondition();
     }
 
     private void CheckTimeToStartInvaision()
     {
-        currentTimeToStartInvasion += Time.deltaTime;
-        if(currentTimeToStartInvasion > timeToStartInvasion)
-        {
-            isInvasion = true;
-        }
-
-        TimeToStartInvasionText.text = (timeToStartInvasion - currentTimeToStartInvasion).ToString("f0");
+        invasionTimer.StartTimer();
+        prepareToInvasionTimer.StopTimer();
     }
 
     private void GetWheat()
@@ -172,65 +150,36 @@ public class GameDispatcher : MonoBehaviour
         UpdateCounter(wheatsWinText, $"Wheats: {wheatCounter.Count}/{finalWheat}");
     }
 
-    private void CheckFarmersInQueue()
+    private void GetFarmer()
     {
-        if (farmersInQueue > 0)
-        {
-            currentTimeToHireFarmer += Time.deltaTime;
-            farmerImage.fillAmount = currentTimeToHireFarmer / timeToHireFarmer;
-
-            if (currentTimeToHireFarmer > timeToHireFarmer)
-            {
-                farmersInQueue--;
-                CurrentFarmerCount++;
-                totalFarmersCount++;
-                UpdateCounter(FarmersWinText, $"Farmers: {CurrentFarmerCount}/{finalFarmer}");
-                currentTimeToHireFarmer = 0;
-            }
-        }
+        farmerTimer.StopTimer();
+        CurrentFarmerCount++;
     }
 
-    private void CheckKnightsInQueue()
+    private void GetKnight()
     {
-        if (knightsInQueue > 0)
-        {
-            currentTimeToHireKnight += Time.deltaTime;
-            knightImage.fillAmount = currentTimeToHireKnight / timeToHireKnight;
-
-            if (currentTimeToHireKnight > timeToHireKnight)
-            {
-                knightsInQueue--;
-                CurrentKnightCount++;
-                totalKnightsCount++;
-                currentTimeToHireKnight = 0;
-            }
-        }
+        knightTimer.StopTimer();
+        CurrentKnightCount++;
+        totalKnightsCount++;
     }
 
     private void CheckInvasion()
     {
-        currentTimeInvasion += Time.deltaTime;
-        invasionImage.fillAmount = currentTimeInvasion / timeInvasion;
-
-        if (currentTimeInvasion > timeInvasion)
+        CurrentKnightCount -= waves[currentInvasionWave];
+        if (CurrentKnightCount < 0)
         {
-            CurrentKnightCount -= waves[currentInvasionWave];
-            if (CurrentKnightCount < 0)
-            {
-                CurrentKnightCount = 0;
-                ShowResultPanel(false);
-                return;
-            }
-
-            if (currentInvasionWave + 1 == waves.Length)
-            {
-                ShowResultPanel(true);
-                return;
-            }
-
-            currentTimeInvasion = 0;
-            UpdateCounter(currentInvasionText, waves[++currentInvasionWave].ToString());
+            CurrentKnightCount = 0;
+            ShowResultPanel(false);
+            return;
         }
+
+        if (currentInvasionWave + 1 == waves.Length)
+        {
+            ShowResultPanel(true);
+            return;
+        }
+
+        UpdateCounter(currentInvasionText, waves[++currentInvasionWave].ToString());
     }
 
     private void CheckWinCondition()
@@ -244,14 +193,14 @@ public class GameDispatcher : MonoBehaviour
 
     public void HireFarmer()
     {
-        if (farmersInQueue > 0)
+        if (farmerTimer.IsStart)
         {
             return;
         }
 
         if (wheatCounter.Count >= farmerCost)
         {
-            farmersInQueue++;
+            farmerTimer.StartTimer();
             wheatCounter.Count -= farmerCost;
             UpdateCounter(wheatsWinText, $"Wheats: {wheatCounter.Count}/{finalWheat}");
         }
@@ -259,14 +208,14 @@ public class GameDispatcher : MonoBehaviour
 
     public void HireKnight()
     {
-        if (knightsInQueue > 0)
+        if (knightTimer.IsStart)
         {
             return;
         }
 
         if (wheatCounter.Count >= knightCost)
         {
-            knightsInQueue++;
+            knightTimer.StartTimer();
             wheatCounter.Count -= knightCost;
             UpdateCounter(wheatsWinText, $"Wheats: {wheatCounter.Count}/{finalWheat}");
         }
@@ -274,7 +223,7 @@ public class GameDispatcher : MonoBehaviour
 
     private void ShowHidePausePanel()
     {        
-        if (isPause)
+        if (IsPause)
         {
             resultPanel.SetActive(true);
             resultImage.sprite = winSprite;
@@ -317,7 +266,7 @@ public class GameDispatcher : MonoBehaviour
         else
         {
             resultImage.sprite = failSprite;
-            resultText.text = string.Format(failTitle, totalWheatsCount, totalFarmersCount, totalKnightsCount);
+            resultText.text = string.Format(failTitle, totalWheatsCount, CurrentFarmerCount, totalKnightsCount);
             resultPanel.GetComponent<Image>().color = new Color(0.98f, 0.65f, 0.65f, 0.39f);
         }
     }

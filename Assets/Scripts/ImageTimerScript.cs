@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerScript : MonoBehaviour
+public class ImageTimerScript : MonoBehaviour
 {
     private float currentTime = 0f;
-    private bool isStart = false;
+    public bool IsStart { get; private set; } = false;
+
     [SerializeField] private int TimePeriod;
-    
+
     public event Action OnTick;
     private Image image;
     // Start is called before the first frame update
@@ -20,30 +19,34 @@ public class TimerScript : MonoBehaviour
 
     public void StartTimer()
     {
-        isStart = true;
+        IsStart = true;
     }
 
     public void StopTimer()
     {
-        isStart = false;
+        IsStart = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isStart)
+        if (!IsStart)
             return;
 
         currentTime += Time.deltaTime;
+        UpdateTimer();
 
-        if(currentTime > TimePeriod)
+        if (currentTime > TimePeriod)
         {
             currentTime = 0;
 
-            if(OnTick != null)
+            if (OnTick != null)
                 OnTick?.Invoke();
         }
+    }
 
+    public void UpdateTimer()
+    {
         image.fillAmount = currentTime / TimePeriod;
     }
 }
